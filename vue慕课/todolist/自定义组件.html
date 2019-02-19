@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义组件和组件传值</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<input type="text" v-model="name">
+		<button @click="handlSubmit">提交</button>
+		<ul>
+			<todo-list v-for="(item,index) in list" :key="index" :content="item" :index="index"    @delete="handleDelete"></todo-list>
+		</ul>
+	</div>
+	<script>
+
+
+		// Vue中的每个组件都是一个Vue实例
+		Vue.component('todo-list',{
+			props:["content","index"],
+			template:'<li @click="handleClick">{{content}}</li>',
+			methods:{
+				handleClick:function(){
+					alert(this._props.content);
+					console.log(this);
+					this.$emit('delete',this.index);//子组件触发delete事件
+				}
+			}
+		})
+		
+		new Vue({
+			el:"#root",
+			data:{
+				name:'',
+				list:[]
+			},
+			template:'',//若不定义模板，会把挂载点下面的所有dom标签作为模板
+			methods:{
+				handlSubmit:function(){
+					this.list.push(this.name);
+					this.name='';
+				},
+				handleDelete:function(index){
+					this.list.splice(index,1);
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>

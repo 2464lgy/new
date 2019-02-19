@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-if,v-show与v-for指令</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<div v-if="show">hello world</div>
+		<div v-show="show">hello world</div>
+
+		<button @click="changeHandler">toggle</button>
+
+		<ul>
+			<!-- :key   用于提升效率   key值要求每一项都不相同 -->
+			<li v-for="(item,index) of list" :key="index">{{item}}</li>
+		</ul>
+
+
+	</div>
+	<script>
+		new Vue({
+			el:'#root',
+			data:{
+				show:true,
+				list:[1, 2, 3]
+			},
+			methods:{
+				changeHandler:function(){
+					this.show=!this.show;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

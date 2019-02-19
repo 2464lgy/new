@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>todoList组件拆分</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<input type="text" v-model="name">
+		<button @click="handlSubmit">提交</button>
+		<ul>
+			<todo-item v-for="(item,index) in list" :key="index" :content="item"></todo-item>     <!-- 父组件通过属性向子组件传递参数 -->
+		</ul>
+	</div>
+	<script>
+
+	//	全局组件
+		Vue.component('todo-item',{   
+			props:['content'],  //子组件接收父组件传入的值
+			template:'<li>{{content}}</li>'
+		})
+
+
+		// var TodoItem={
+		// 	template:'<li>item</li>'
+		// }
+
+		new Vue({
+			el:'#root',
+			// components:{
+			// 	'todo-item':TodoItem
+			// },
+			data:{
+				name:'',
+				list:[]
+			},
+			methods:{
+				handlSubmit:function(){
+					this.list.push(this.name);
+					this.name='';
+				}
+			}
+		})
+	</script>
+</body>
+</html>

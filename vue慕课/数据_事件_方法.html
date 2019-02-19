@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue实例中的数据、事件和方法</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<h1 v-on:click="handleClick">hello {{msg}}</h1>
+		<h1 v-text="number" @click="handleClick"></h1>
+		<h1 v-html="number"></h1>
+
+
+
+
+		
+		<h1 v-text="HTMLTest"></h1>    <!-- 会进行一次转义 -->
+		<h1 v-html="HTMLTest"></h1>	   <!-- 不会转义 -->
+	</div>
+	<script>
+		new Vue({
+			el:"#root",
+			data:{
+				msg:"hello world",
+				number:123,
+				HTMLTest:'<span>234567</span>' 
+			},
+			methods:{
+				handleClick:function(){
+					alert(123);
+					this.msg='嗨';
+				}
+			}
+		})
+	</script>
+</body>
+</html>
